@@ -1,14 +1,14 @@
 const express = require("express");
 const { ExpressPeerServer } = require("peer");
+const cors = require("cors");
 
 const app = express();
+app.use(cors()); // ✅ Allow all origins by default
+
 const server = require("http").Server(app);
 
 const peerServer = ExpressPeerServer(server, {
   path: "/peerjs",
-  corsOptions: {
-    origin: "*", // Allow all origins (or set a specific domain)
-  },
 });
 
 app.use("/peerjs", peerServer);
