@@ -1,12 +1,23 @@
-// index.js
-const { PeerServer } = require("peer");
+const express = require("express");
+const { ExpressPeerServer } = require("peer");
 
-// Initialize the PeerJS server
-const peerServer = PeerServer({
-  host: "0.0.0.0", // Bind to all interfaces
-  port: 10000, // You can use any port
-  path: "/peerjs", // Path for the PeerJS service
-  secure: process.env.NODE_ENV === "production", // Use secure WebSocket (wss) in production
+const app = express();
+const server = require("http").Server(app);
+
+const peerServer = ExpressPeerServer(server, {
+  path: "/peerjs",
+  corsOptions: {
+    origin: "*", // Allow all origins (or set a specific domain)
+  },
 });
 
-console.log("PeerJS server is running on port 10000");
+app.use("/peerjs", peerServer);
+
+app.get("/", (req, res) => {
+  res.send("PeerJS Server is running.");
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`PeerJS Server running on port ${PORT}`);
+});
