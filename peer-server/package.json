@@ -1,13 +1,13 @@
 {
   "name": "peer-server",
   "version": "1.0.0",
+  "main": "server.js",
   "scripts": {
-    "start": "npx peerjs --port $PORT --path /peerjs --host 0.0.0.0"
+    "start": "node index.js"
   },
   "dependencies": {
-    "peerjs": "^1.4.7"
-  },
-  "devDependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "peer": "^0.6.1"
   }
 }
