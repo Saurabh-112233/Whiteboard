@@ -39,7 +39,13 @@ const CreateRoomForm = ({ uuid, socket, setUser, setMyPeer }) => {
       this.myPeer.reconnect();
     });
   };
-
+  const handleCopyRoomId = () => {
+    navigator.clipboard.writeText(roomId).then(() => {
+      alert("Room ID copied to clipboard!");
+    }).catch((err) => {
+      console.error("Failed to copy: ", err);
+    });
+  };
   return (
     <form className="form col-md-12 mt-5">
       <div className="form-group">
@@ -71,6 +77,7 @@ const CreateRoomForm = ({ uuid, socket, setUser, setMyPeer }) => {
             <button
               className="btn btn-outline-danger btn-sm me-2"
               type="button"
+              onClick={handleCopyRoomId} 
             >
               copy
             </button>
